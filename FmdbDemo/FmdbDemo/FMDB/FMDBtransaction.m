@@ -120,7 +120,7 @@ static FMDBtransaction *_sharedSingleton;
     }
     NSDate *end = [NSDate date];
     NSTimeInterval time = [end timeIntervalSinceDate:begin];
-    NSLog(@"事务中执行插入任务 所需要的时间 = %f",time);
+    NSLog(@"不在事务中执行插入任务 所需要的时间 = %f",time);
 }
 /**
  *  批量操作

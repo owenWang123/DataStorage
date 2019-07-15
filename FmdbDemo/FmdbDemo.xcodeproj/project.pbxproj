@@ -19,6 +19,8 @@
 		5A415ED622C3120B003DC639 /* FMDBdata.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A415ED522C3120B003DC639 /* FMDBdata.m */; };
 		5A415ED922C349EC003DC639 /* FMDBtransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A415ED822C349EC003DC639 /* FMDBtransaction.m */; };
 		5A41607522C46E13003DC639 /* FMDBqueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A41607422C46E13003DC639 /* FMDBqueue.m */; };
+		5AB64A4622DC8237001B0C59 /* FMDBaddColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB64A4522DC8237001B0C59 /* FMDBaddColumn.m */; };
+		5AB64A4922DC8249001B0C59 /* FMDBmoveTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB64A4822DC8249001B0C59 /* FMDBmoveTable.m */; };
 		6DE4720353206A8622BF4F27 /* libPods-FmdbDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 272F391AFC03B40C8C46D6BC /* libPods-FmdbDemo.a */; };
 		7A56319D8B36B372E0D9B5A1 /* libPods-FmdbDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA8A293C260F0260B841A6EB /* libPods-FmdbDemoTests.a */; };
 		EE1F573D37A1CC9B8766899C /* libPods-FmdbDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 912A9C3A5DF105622090CF98 /* libPods-FmdbDemoUITests.a */; };
@@ -70,6 +72,10 @@
 		5A415ED822C349EC003DC639 /* FMDBtransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBtransaction.m; sourceTree = "<group>"; };
 		5A41607322C46E13003DC639 /* FMDBqueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBqueue.h; sourceTree = "<group>"; };
 		5A41607422C46E13003DC639 /* FMDBqueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBqueue.m; sourceTree = "<group>"; };
+		5AB64A4422DC8237001B0C59 /* FMDBaddColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBaddColumn.h; sourceTree = "<group>"; };
+		5AB64A4522DC8237001B0C59 /* FMDBaddColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBaddColumn.m; sourceTree = "<group>"; };
+		5AB64A4722DC8249001B0C59 /* FMDBmoveTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBmoveTable.h; sourceTree = "<group>"; };
+		5AB64A4822DC8249001B0C59 /* FMDBmoveTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBmoveTable.m; sourceTree = "<group>"; };
 		5B3083E4FAC57EDED30ACD31 /* Pods-FmdbDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FmdbDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-FmdbDemoTests/Pods-FmdbDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		762F519B447F9B93143A339C /* Pods-FmdbDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FmdbDemo.debug.xcconfig"; path = "Target Support Files/Pods-FmdbDemo/Pods-FmdbDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		912A9C3A5DF105622090CF98 /* libPods-FmdbDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FmdbDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +179,10 @@
 				5A415ED822C349EC003DC639 /* FMDBtransaction.m */,
 				5A41607322C46E13003DC639 /* FMDBqueue.h */,
 				5A41607422C46E13003DC639 /* FMDBqueue.m */,
+				5AB64A4422DC8237001B0C59 /* FMDBaddColumn.h */,
+				5AB64A4522DC8237001B0C59 /* FMDBaddColumn.m */,
+				5AB64A4722DC8249001B0C59 /* FMDBmoveTable.h */,
+				5AB64A4822DC8249001B0C59 /* FMDBmoveTable.m */,
 			);
 			path = FMDB;
 			sourceTree = "<group>";
@@ -404,7 +414,9 @@
 			files = (
 				5A415EA422C30C3E003DC639 /* ViewController.m in Sources */,
 				5A415ED622C3120B003DC639 /* FMDBdata.m in Sources */,
+				5AB64A4622DC8237001B0C59 /* FMDBaddColumn.m in Sources */,
 				5A415ED322C30F14003DC639 /* StudentModel.m in Sources */,
+				5AB64A4922DC8249001B0C59 /* FMDBmoveTable.m in Sources */,
 				5A415EAF22C30C54003DC639 /* main.m in Sources */,
 				5A415EA122C30C3E003DC639 /* AppDelegate.m in Sources */,
 				5A415ED922C349EC003DC639 /* FMDBtransaction.m in Sources */,

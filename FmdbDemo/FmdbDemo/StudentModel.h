@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) BOOL gender;// YES男 NO女
 @property (nonatomic, assign) int score;
+@property (nonatomic, copy) NSString *phone;
 
 @end
 

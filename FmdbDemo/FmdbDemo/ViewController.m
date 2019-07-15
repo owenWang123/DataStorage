@@ -11,6 +11,8 @@
 #import "FMDBdata.h"
 #import "FMDBtransaction.h"
 #import "FMDBqueue.h"
+#import "FMDBaddColumn.h"
+#import "FMDBmoveTable.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,14 +28,14 @@
     [self configUI];
 }
 - (void)configUI{
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"dbCell"];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
@@ -56,8 +58,10 @@
         titleLab.text = @"常规操作";
     }else if (section == 1) {
         titleLab.text = @"事务操作";
-    }else {
+    }else if (section == 2) {
         titleLab.text = @"线程操作";
+    }else {
+        titleLab.text = @"数据库升级";
     }
     
     return headerView;
@@ -75,70 +79,100 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger index = indexPath.row;
-    if (indexPath.section == 1) {
-        index += 4;
+    if (indexPath.section == 0) {
+        /** ⚠️ 常规操作：增、删、改、查 ⚠️**/
+        switch (indexPath.row) {
+            case 0:
+            {
+                StudentModel *model = [[StudentModel alloc]init];
+                model.ID = 1;
+                model.name = @"Tom";
+                model.gender = YES;
+                model.score = 80;
+                
+                FMDBdata *dataBase = [FMDBdata sharedInstance];
+                [dataBase handleInsert:model];
+            }
+                break;
+            case 1:
+            {
+                FMDBdata *dataBase = [FMDBdata sharedInstance];
+                [dataBase handleDelete:1];
+            }
+                break;
+            case 2:
+            {
+                FMDBdata *dataBase = [FMDBdata sharedInstance];
+                [dataBase handleUpdateScore:90 withID:1];
+            }
+                break;
+            case 3:
+            {
+                FMDBdata *dataBase = [FMDBdata sharedInstance];
+                NSMutableArray *dataArr = [dataBase handleQuery:1];
+                NSLog(@"Query:%@",dataArr);
+            }
+                
+            default:
+                break;
+        }
+    }else if (indexPath.section == 1){
+        /** ⚠️ 事务操作 ⚠️**/
+        switch (indexPath.row) {
+            case 0:
+            {
+                FMDBtransaction *dataBase = [FMDBtransaction sharedInstance];
+                [dataBase handleTransaction];
+            }
+                break;
+            case 1:
+            {
+                FMDBtransaction *dataBase = [FMDBtransaction sharedInstance];
+                [dataBase handleNotransaction];
+            }
+                break;
+                
+            default:
+                break;
+        }
     }else if (indexPath.section == 2){
-        index += 6;
-    }
-    switch (index) {
-        case 0:
-        {
-            StudentModel *model = [[StudentModel alloc]init];
-            model.ID = 1;
-            model.name = @"Tom";
-            model.gender = YES;
-            model.score = 80;
-            
-            FMDBdata *dataBase = [FMDBdata sharedInstance];
-            [dataBase handleInsert:model];
+        /** ⚠️ 线程操作 ⚠️**/
+        switch (indexPath.row) {
+            case 0:
+            {
+                FMDBqueue *dataBase = [FMDBqueue sharedInstance];
+                [dataBase handleQueueMutilLine];
+            }
+                break;
+            case 1:
+            {
+                FMDBqueue *dataBase = [FMDBqueue sharedInstance];
+                [dataBase handleNormalMutilLine];
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-        case 1:
-        {
-            FMDBdata *dataBase = [FMDBdata sharedInstance];
-            [dataBase handleDelete:1];
+    }else if (indexPath.section == 3){
+        /** ⚠️ 数据库升级 ⚠️**/
+        switch (indexPath.row) {
+            case 0:
+            {
+                // 使用时先插入数据
+                FMDBaddColumn *addColumn = [FMDBaddColumn sharedInstance];
+                [addColumn checkDataBaseUpdate:@"t_student" column:@"phone"];
+            }
+                break;
+            case 1:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-        case 2:
-        {
-            FMDBdata *dataBase = [FMDBdata sharedInstance];
-            [dataBase handleUpdateScore:90 withID:1];
-        }
-            break;
-        case 3:
-        {
-            FMDBdata *dataBase = [FMDBdata sharedInstance];
-            NSMutableArray *dataArr = [dataBase handleQuery:1];
-            NSLog(@"Query:%@",dataArr);
-        }
-            /** ⚠️ 以上为常规操作：增、删、改、查 ⚠️**/
-        case 4:
-        {
-            FMDBtransaction *dataBase = [FMDBtransaction sharedInstance];
-            [dataBase handleTransaction];
-        }
-            break;
-        case 5:
-        {
-            FMDBtransaction *dataBase = [FMDBtransaction sharedInstance];
-            [dataBase handleNotransaction];
-        }
-            break;
-        case 6:
-        {
-            FMDBqueue *dataBase = [FMDBqueue sharedInstance];
-            [dataBase handleQueueMutilLine];
-        }
-            break;
-        case 7:
-        {
-            FMDBqueue *dataBase = [FMDBqueue sharedInstance];
-            [dataBase handleNormalMutilLine];
-        }
-            break;
-        default:
-            break;
     }
 }
 - (NSMutableArray *)sourceArr{
@@ -150,9 +184,12 @@
                             @[@"transaction db",
                               @"notransaction db"],
                             @[@"queueMutilLine db",
-                              @"normalMutilLine db"]];
+                              @"normalMutilLine db"],
+                            @[@"新增字段(先insert db一条数据)",
+                              @"表迁移"]];
         _sourceArr = [NSMutableArray arrayWithArray:tmpArr];
     }
     return _sourceArr;
 }
+
 @end

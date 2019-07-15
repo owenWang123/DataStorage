@@ -107,6 +107,13 @@ static FMDBdata *_sharedSingleton;
     }
     [db close];
 }
+/**
+ * 多条件查询用 and 连接
+ * 如："update 't_student' set ID = ? where name = ? and gender = ?",@111,@"x2",@(1)
+ *
+ * 多colume修改用 , 连接
+ * 如："update 't_student' set ID = ?,gender = ? where name = ?",@111,@(0),@"x2"
+ */
 - (void)handleUpdateScore:(NSInteger)score withID:(NSInteger)ID {
     [db open];
     //0.直接sql语句
@@ -116,9 +123,11 @@ static FMDBdata *_sharedSingleton;
     //2.
     //    BOOL result = [db executeUpdateWithFormat:@"update 't_student' set ID = %d where name = %@",113,@"x3" ];
     //3.
-    BOOL result = [db executeUpdate:@"update 't_student' set score = ? where ID = ?" withArgumentsInArray:@[@(score),@(ID)]];
+    //    BOOL result = [db executeUpdate:@"update 't_student' set score = ? where ID = ?" withArgumentsInArray:@[@(score),@(ID)]];
     //4.
     //    BOOL result = [db executeUpdate:@"update 't_student' set :ID = ? where :name = ?" withParameterDictionary:@{@"ID":@114,@"name":@"x4"}];
+    
+    BOOL result = [db executeUpdate:@"update 't_student' set score = ? where ID = ? and gender = ?",@(score),@(ID),@(1)];
     if (result) {
         NSLog(@"update 't_student' success");
     } else {
@@ -159,8 +168,11 @@ static FMDBdata *_sharedSingleton;
         student.gender = [result boolForColumn:@"gender"];
         student.score = [result intForColumn:@"score"];
         [arr addObject:student];
-        NSLog(@"从数据库查询到的人员 %@",student.name);
+        NSLog(@"从数据库查询到的人员%d %@ %d %d",student.ID,student.name,student.gender,student.score);
     }
+    
+    [db close];
+    
     return arr;
 }
 
